@@ -16,8 +16,6 @@ public class App {
         Convertor convertor = new Convertor(105.4, 106.3, 0.66);
         DinnerAdvisor dinnerAdvisor = new DinnerAdvisor();
         ExpenseManager expenseManager = new ExpenseManager();
-        Expense expense = new Expense(100, " ");
-
 
         while (true) {
             printMenu();
@@ -34,15 +32,19 @@ public class App {
                     dinnerAdvisor.getAdvice(restOfMoney, daysBeforeSalary);
                     break;
                 case 3:
-                    System.out.println("Введите сумму траты ");
-                    int value = sc.nextInt();
-                    System.out.println("Введи описание траты ");
-                    String description = sc.nextLine();
-                    System.out.println("Введи id для добавления траты");
+                    System.out.println("Введите id траты для добавления в список:");
                     int id = sc.nextInt();
-
-                    expenseManager.addExpense(expense, id);
-                    System.out.println("Трата добавлена");
+                    System.out.println("Введите сумму траты:");
+                    double amount = sc.nextDouble();
+                    expenseManager.addExpense(id, amount);
+                    break;
+                case 4:
+                    System.out.println("Введите id траты, которую хотите удалить ");
+                    id = sc.nextInt();
+                    expenseManager.deleteExpense(id);
+                    break;
+                case 5:
+                    expenseManager.printAllExpenses();
             }
         }
     }
@@ -53,6 +55,7 @@ public class App {
         System.out.println("2. Получить совет");
         System.out.println("3. Добавить трату ");
         System.out.println("4. Удалить трату");
+        System.out.println("5 Вывести все траты");
     }
 }
 // Создать класс Expense, трата (величина траты, номер траты)
