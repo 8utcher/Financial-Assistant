@@ -1,5 +1,7 @@
 package project2.com;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,7 +18,7 @@ public class App {
         Convertor convertor = new Convertor(105.4, 106.3, 0.66);
         DinnerAdvisor dinnerAdvisor = new DinnerAdvisor();
         ExpenseManager expenseManager = new ExpenseManager();
-
+//        String category;
         while (true) {
             printMenu();
             int n = sc.nextInt();
@@ -32,19 +34,52 @@ public class App {
                     dinnerAdvisor.getAdvice(restOfMoney, daysBeforeSalary);
                     break;
                 case 3:
-                    System.out.println("Введите id траты для добавления в список:");
+                    System.out.println("Введите категорию");
+                    String category = sc.next();
+                    System.out.println("Введите id");
                     int id = sc.nextInt();
                     System.out.println("Введите сумму траты:");
-                    double amount = sc.nextDouble();
-                    expenseManager.addExpense(id, amount);
+                    double value = sc.nextDouble();
+                    System.out.println("Описание траты: ");
+                    String description = sc.next();
+                    Expense expense = new Expense(id, value, description);
+                    expenseManager.addExpense(expense, category);
                     break;
                 case 4:
+                    System.out.println("Введите категорию");
+                    category = sc.next();
                     System.out.println("Введите id траты, которую хотите удалить ");
                     id = sc.nextInt();
-                    expenseManager.deleteExpense(id);
+                    expenseManager.deleteExpense(id, category);
                     break;
                 case 5:
                     expenseManager.printAllExpenses();
+                    break;
+                case 6:
+                    System.out.println("Введи описание");
+                    String descreption = sc.next();
+                    expenseManager.printOneExpense(descreption);
+                    break;
+                case 7:
+                    System.out.println("Введите категорию");
+                    category = sc.next();
+                    expenseManager.printAllExpensesByCategory(category);
+                    break;
+                case 8:
+                    expenseManager.sumOfAllExpenses();
+                    break;
+                case 9:
+                    System.out.println("Введите категорию");
+                    String category2 = sc.next();
+                    expenseManager.deleteCategory(category2);
+                    break;
+                case 10:
+                    expenseManager.getTheMostExpensiveCategory();
+                    break;
+                case 11:
+                    expenseManager.clearAllExpenses();
+                    break;
+                default:
             }
         }
     }
@@ -53,10 +88,14 @@ public class App {
         System.out.println("Что вы хотите сделать?");
         System.out.println("1. Конвертировать валюту");
         System.out.println("2. Получить совет");
-        System.out.println("3. Добавить трату ");
+        System.out.println("3. Добавить трату в категорию");
         System.out.println("4. Удалить трату");
-        System.out.println("5 Вывести все траты");
+        System.out.println("5 Вывести все траты по категории");
+        System.out.println("6 Показать трату");
+        System.out.println("7 Показать траты по категориям");
+        System.out.println("8 Вернуть сумму всех трат");
+        System.out.println("9 Удалить категорию");
+        System.out.println("10 Получить имя самой дорогой категории");
+        System.out.println("11 Очистить таблицу трат");
     }
 }
-// Создать класс Expense, трата (величина траты, номер траты)
-// Добавить ExpenseManager сервис по работе с тратами (список трат)
